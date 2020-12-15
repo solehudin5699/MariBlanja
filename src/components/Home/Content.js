@@ -9,6 +9,7 @@ import {
   ScrollView,
   Pressable,
   Image,
+  Alert,
 } from 'react-native';
 import {Text, Card, CardItem, Body, Thumbnail} from 'native-base';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
@@ -33,6 +34,8 @@ const data = [
     ulasan: {name: ''},
     numLike: 12,
     numUnlike: 10,
+    description:
+      'Produk ini sangat cocok ekali banget untu Anda karena nyaman dipakai dan tidak mudah rusak. Belilah produk-produk Indonesia. Mari Cintai karya anak bangsa untuk Indonesia yang lebih baik.',
   },
   {
     id: 2,
@@ -49,6 +52,8 @@ const data = [
     ulasan: {name: ''},
     numLike: 12,
     numUnlike: 5,
+    description:
+      'Produk ini sangat cocok ekali banget untu Anda karena nyaman dipakai dan tidak mudah rusak. Belilah produk-produk Indonesia. Mari Cintai karya anak bangsa untuk Indonesia yang lebih baik.',
   },
   {
     id: 3,
@@ -64,6 +69,8 @@ const data = [
     ulasan: {name: ''},
     numLike: 100,
     numUnlike: 20,
+    description:
+      'Produk ini sangat cocok ekali banget untu Anda karena nyaman dipakai dan tidak mudah rusak. Belilah produk-produk Indonesia. Mari Cintai karya anak bangsa untuk Indonesia yang lebih baik.',
   },
   {
     id: 4,
@@ -79,6 +86,8 @@ const data = [
     ulasan: {name: ''},
     numLike: 12,
     numUnlike: 1,
+    description:
+      'Produk ini sangat cocok ekali banget untu Anda karena nyaman dipakai dan tidak mudah rusak. Belilah produk-produk Indonesia. Mari Cintai karya anak bangsa untuk Indonesia yang lebih baik.',
   },
   {
     id: 5,
@@ -94,6 +103,8 @@ const data = [
     ulasan: {name: ''},
     numLike: 12,
     numUnlike: 1,
+    description:
+      'Produk ini sangat cocok ekali banget untu Anda karena nyaman dipakai dan tidak mudah rusak. Belilah produk-produk Indonesia. Mari Cintai karya anak bangsa untuk Indonesia yang lebih baik.',
   },
   {
     id: 6,
@@ -109,6 +120,8 @@ const data = [
     ulasan: {name: ''},
     numLike: 12,
     numUnlike: 1,
+    description:
+      'Produk ini sangat cocok ekali banget untu Anda karena nyaman dipakai dan tidak mudah rusak. Belilah produk-produk Indonesia. Mari Cintai karya anak bangsa untuk Indonesia yang lebih baik.',
   },
   {
     id: 7,
@@ -124,6 +137,8 @@ const data = [
     ulasan: {name: ''},
     numLike: 100,
     numUnlike: 100,
+    description:
+      'Produk ini sangat cocok ekali banget untu Anda karena nyaman dipakai dan tidak mudah rusak. Belilah produk-produk Indonesia. Mari Cintai karya anak bangsa untuk Indonesia yang lebih baik.',
   },
 ];
 
@@ -282,8 +297,9 @@ const Item = ({item}) => {
                       alignItems: 'flex-end',
                     }}>
                     <Icon
+                      onPress={() => alert('Hallo')}
                       name="ellipsis-horizontal"
-                      size={13}
+                      size={15}
                       color="#9fa6b0"
                       type="ionicon"
                     />

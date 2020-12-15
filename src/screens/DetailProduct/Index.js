@@ -16,6 +16,8 @@ import Swiper from 'react-native-swiper';
 import official from '../../assets/images/official.png';
 import unofficial from '../../assets/images/unofficial.png';
 import bebasongkir from '../../assets/images/bebasongkir.png';
+import qna from '../../assets/images/qna.png';
+import carIcon from '../../assets/images/delivery.png';
 
 export default function Index(props) {
   const navigation = useNavigation();
@@ -33,6 +35,7 @@ export default function Index(props) {
               onMomentumScrollEnd={(e, state, context) =>
                 console.log('index:', state.index)
               }
+              loop={false}
               dotStyle={{
                 backgroundColor: '#f3f5f7',
                 width: 7,
@@ -50,8 +53,7 @@ export default function Index(props) {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'row',
-              }}
-              loop>
+              }}>
               {route.params.image.map((item, index) => (
                 <Image
                   key={index}
@@ -78,7 +80,6 @@ export default function Index(props) {
                   justifyContent: 'center',
                 }}>
                 <Icon
-                  // reverse
                   name="heart"
                   size={25}
                   color="#6b727b"
@@ -158,7 +159,67 @@ export default function Index(props) {
             </View>
           </CardItem>
           <CardItem bordered>
-            <Text>Haloo</Text>
+            <View style={{}}>
+              <Text style={styles.textTitleDesc}>Deskripsi Produk</Text>
+              <Text style={styles.textDesc}>{route.params.description}</Text>
+            </View>
+          </CardItem>
+          <CardItem bordered>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                marginVertical: -10,
+              }}>
+              <View
+                style={{
+                  flex: 1 / 3,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }}>
+                <Text style={styles.textStar1}>
+                  {(
+                    (Number(route.params.numLike) /
+                      Number(route.params.numLike + route.params.numUnlike)) *
+                    5
+                  ).toFixed(1)}
+                </Text>
+                <Icon name="star" size={20} color="gold" type="ant-design" />
+                <Text style={styles.textStar2}>/5</Text>
+              </View>
+              <View
+                style={{
+                  flex: 1 / 3,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Thumbnail
+                  source={qna}
+                  style={{
+                    width: 30,
+                    height: 30,
+                  }}
+                />
+                <Text style={styles.textDiscuss}>30 Diskusi</Text>
+              </View>
+              <View
+                style={{
+                  flex: 1 / 3,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Thumbnail
+                  source={carIcon}
+                  style={{
+                    width: 30,
+                    height: 30,
+                  }}
+                />
+                <Text style={styles.textDelivery}>Pengiriman</Text>
+              </View>
+            </View>
           </CardItem>
         </Card>
       </Content>
@@ -167,14 +228,12 @@ export default function Index(props) {
           flexDirection: 'row',
           backgroundColor: '#FFFFFF',
           alignItems: 'center',
-          justifyContent: 'space-evenly',
+          justifyContent: 'space-around',
+          height: 65,
+          paddingVertical: 10,
+          borderTopWidth: 0.1,
+          borderTopColor: '#73767b',
         }}>
-        {/* <View
-          style={{
-            flex: 0.15,
-            justifyContent: 'center',
-            flexDirection: 'row',
-          }}> */}
         <Button
           style={{
             backgroundColor: '#FFFFFF',
@@ -196,9 +255,6 @@ export default function Index(props) {
             style={{alignSelf: 'center'}}
           />
         </Button>
-        {/* </View> */}
-        {/* <View
-          style={{flex: 0.35, justifyContent: 'center', flexDirection: 'row'}}> */}
         <Button
           style={{
             width: '25%',
@@ -222,9 +278,6 @@ export default function Index(props) {
             Beli
           </Text>
         </Button>
-        {/* </View> */}
-        {/* <View
-          style={{flex: 0.5, justifyContent: 'center', flexDirection: 'row'}}> */}
         <Button
           style={{
             width: '45%',
@@ -247,7 +300,6 @@ export default function Index(props) {
             Tambah ke Keranjang
           </Text>
         </Button>
-        {/* </View> */}
       </Footer>
     </Container>
   );
@@ -264,6 +316,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontStyle: 'normal',
     marginRight: 8,
+  },
+  textTitleDesc: {
+    color: '#000000',
+    fontSize: 15,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    marginRight: 8,
+    letterSpacing: 1,
+    marginBottom: 5,
+  },
+  textDesc: {
+    color: '#73767b',
+    fontSize: 14,
+    fontStyle: 'normal',
+    marginRight: 8,
+    fontFamily: 'arial',
+    textAlign: 'justify',
   },
   textProductfrom: {
     color: '#73767b',
@@ -291,8 +360,29 @@ const styles = StyleSheet.create({
     marginRight: 8,
     fontFamily: 'arial',
   },
-  starColor: {
-    color: '#d8414a',
+  textDiscuss: {
+    color: '#118b0d',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontFamily: 'arial',
+  },
+  textDelivery: {
+    color: '#118b0d',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontFamily: 'arial',
+  },
+  textStar1: {
+    color: '#000000',
+    fontSize: 25,
+    fontWeight: 'bold',
+    fontStyle: 'normal',
+  },
+  textStar2: {
+    marginBottom: -5,
+    fontFamily: 'arial',
+    fontStyle: 'normal',
+    color: '#000000',
   },
   footer: {
     backgroundColor: 'white',
