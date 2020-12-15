@@ -1,114 +1,256 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+// import React, {useEffect, useState, createRef} from 'react';
+// import {Image, Text, View, Dimensions, RefreshControl} from 'react-native';
+// import Masonry from 'react-native-masonry-layout';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+// const {width} = Dimensions.get('window');
+// const columnWidth = (width - 10) / 2 - 10;
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// export default function Example() {
+//   const [state, setState] = useState({
+//     withHeight: false,
+//     loading: false,
+//   });
+//   const ref = {};
+//   useEffect(() => {
+//     load();
+//   }, []);
+//   // componentDidMount() {
+//   //   this.load();
+//   // }
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
+//   const load = () => {
+//     setState({loading: true});
+//     console.log(ref);
+//     fetch('http://huaban.com/boards/17649987/?limit=10', {
+//       headers: {
+//         'X-Requested-With': 'XMLHttpRequest',
+//       },
+//     })
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setState({loading: false});
+//         data = data.board.pins.map((item) => {
+//           return {
+//             image: 'http://img.hb.aicdn.com/' + item.file.key,
+//             text: item.raw_text,
+//             key: item.file.key,
+//             height: (columnWidth / item.file.width) * item.file.height,
+//           };
+//         });
+//         if (state.withHeight) {
+//           ref.ref.addItemsWithHeight(data);
+//         } else {
+//           ref.ref.addItems(data);
+//         }
+//       });
+//   };
+
+//   const onScrollEnd = (event) => {
+//     const scrollHeight = Math.floor(
+//       event.nativeEvent.contentOffset.y +
+//         event.nativeEvent.layoutMeasurement.height,
+//     );
+//     const height = Math.floor(event.nativeEvent.contentSize.height);
+//     if (scrollHeight >= height) {
+//       load();
+//     }
+//   };
+
+//   // render() {
+//   return (
+//     <View style={{flex: 1, backgroundColor: '#EEE'}}>
+//       <Masonry
+//         onMomentumScrollEnd={onScrollEnd}
+//         style={{flex: 1, borderWidth: 1, borderColor: 'red'}}
+//         columns={2}
+//         ref="ref"
+//         containerStyle={{padding: 5}}
+//         refreshControl={
+//           <RefreshControl
+//             refreshing={false}
+//             // onRefresh={onRefresh}
+//             tintColor="#ff0000"
+//             title="Loading..."
+//             titleColor="#00ff00"
+//             colors={['#ff0000', '#00ff00', '#0000ff']}
+//             progressBackgroundColor="#ffff00"
+//           />
+//         }
+//         renderItem={(item) => (
+//           <View
+//             style={{
+//               margin: 5,
+//               backgroundColor: '#fff',
+//               borderRadius: 5,
+//               overflow: 'hidden',
+//               borderWidth: 1,
+//               borderColor: '#dedede',
+//             }}>
+//             <Image source={{uri: item.image}} style={{height: item.height}} />
+//             <Text style={{padding: 5, color: '#444'}}>{item.text}</Text>
+//           </View>
+//         )}
+//       />
+
+//       {state.loading && (
+//         <View
+//           style={{
+//             position: 'absolute',
+//             justifyContent: 'center',
+//             alignItems: 'center',
+//             top: 0,
+//             bottom: 0,
+//             left: 0,
+//             right: 0,
+//             backgroundColor: 'rgba(0,0,0,0.3)',
+//           }}>
+//           <Text
+//             style={{
+//               backgroundColor: '#fff',
+//               paddingVertical: 20,
+//               paddingHorizontal: 30,
+//               borderRadius: 10,
+//             }}>
+//             Loading...
+//           </Text>
+//         </View>
+//       )}
+//     </View>
+//   );
+//   // }
+// }
+
+import React, {Component} from 'react';
+import {Text, View, Image, Dimensions} from 'react-native';
+import Swiper from 'react-native-swiper';
+const {width} = Dimensions.get('window');
+
+const styles = {
+  container: {
+    flex: 1,
+  },
+
+  wrapper: {},
+
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+  },
+
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5',
+  },
+
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9',
+  },
+
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+
+  image: {
+    width,
+    // flex: 1,
+    height: 400,
+  },
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
-
-export default App;
+export default class extends Component {
+  render() {
+    return (
+      <View style={{height: 400}}>
+        <Swiper
+          style={styles.wrapper}
+          height={400}
+          onMomentumScrollEnd={(e, state, context) =>
+            console.log('index:', state.index)
+          }
+          dotStyle={{
+            backgroundColor: '#f3f5f7',
+            width: 8,
+            height: 8,
+            borderRadius: 4,
+          }}
+          activeDotStyle={{
+            backgroundColor: '#118b0d',
+            width: 8,
+            height: 8,
+            borderRadius: 4,
+          }}
+          paginationStyle={{
+            bottom: 25,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}
+          loop>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              backgroundColor: 'transparent',
+            }}>
+            <Image
+              resizeMode="stretch"
+              style={styles.image}
+              source={require('./src/assets/images/coverbook.jpg')}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              backgroundColor: 'transparent',
+            }}>
+            <Image
+              resizeMode="stretch"
+              style={styles.image}
+              source={require('./src/assets/images/coverbook.jpg')}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              backgroundColor: 'transparent',
+            }}>
+            <Image
+              resizeMode="stretch"
+              style={styles.image}
+              source={require('./src/assets/images/coverbook.jpg')}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              backgroundColor: 'transparent',
+            }}>
+            <Image
+              resizeMode="stretch"
+              style={styles.image}
+              source={require('./src/assets/images/coverbook.jpg')}
+            />
+          </View>
+        </Swiper>
+      </View>
+    );
+  }
+}
