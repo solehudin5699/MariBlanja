@@ -11,7 +11,7 @@ import {Container, Header, Content, Footer} from 'native-base';
 import {Icon, SearchBar} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 
-export default function HeaderDetailProduct(props) {
+export default function HeaderCart(props) {
   const navigation = useNavigation();
   return (
     <Header
@@ -45,7 +45,7 @@ export default function HeaderDetailProduct(props) {
           onPress={() => navigation.goBack()}
         />
       </Pressable>
-      <View style={{flex: 0.7}}>
+      <View style={{flex: 0.9}}>
         <Text
           style={{
             color: '#646a72',
@@ -54,44 +54,9 @@ export default function HeaderDetailProduct(props) {
             fontSize: 18.5,
             marginLeft: 25,
           }}>
-          Detail Produk
+          Keranjang
         </Text>
       </View>
-      <Pressable
-        style={{flex: 0.1}}
-        onPress={() => navigation.navigate('Cart')}>
-        <Icon name="shopping-cart" size={18} color="#646a72" type="feather" />
-        <View
-          style={{
-            position: 'absolute',
-            height: 18,
-            width: 18,
-            borderRadius: 15,
-            backgroundColor: '#d8414a',
-            left: 18,
-            top: -8,
-            zIndex: 10,
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              textAlign: 'center',
-              color: 'white',
-              fontSize: 10,
-              borderRadius: 15,
-            }}>
-            100
-          </Text>
-        </View>
-      </Pressable>
-      <Pressable style={{flex: 0.1}}>
-        <Icon
-          name="ellipsis-vertical"
-          size={18}
-          color="#646a72"
-          type="ionicon"
-        />
-      </Pressable>
     </Header>
   );
 }

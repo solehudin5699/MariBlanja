@@ -4,8 +4,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import Home from '../screens/Home/Index';
 import DetailProduct from '../screens/DetailProduct/Index';
+import Cart from '../screens/Cart/Index';
 import {Header} from 'native-base';
 import HeaderDetailProduct from './HeaderDetailProduct';
+import HeaderCart from './HeaderCart';
 
 export default function AppRoutes() {
   return (
@@ -14,9 +16,9 @@ export default function AppRoutes() {
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#CBE15A',
+            backgroundColor: '#FFFFFF',
           },
-          headerTintColor: 'white',
+          headerTintColor: '#646a72',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
@@ -32,28 +34,22 @@ export default function AppRoutes() {
           name="DetailProduct"
           component={DetailProduct}
           options={{
-            title: 'Detail Product',
             gestureDirection: 'horizontal',
-            header: ({scene, previous, navigation}) => {
-              // const { options } = scene.descriptor;
-              // const title =
-              //   options.headerTitle !== undefined
-              //     ? options.headerTitle
-              //     : options.title !== undefined
-              //     ? options.title
-              //     : scene.route.name;
-
+            header: () => {
               return <HeaderDetailProduct />;
             },
           }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Cart"
           component={Cart}
           options={{
-            title: 'Keranjang',
+            gestureDirection: 'horizontal',
+            header: () => {
+              return <HeaderCart />;
+            },
           }}
-        /> */}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

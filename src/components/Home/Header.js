@@ -1,16 +1,11 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  View,
-  Text,
-  FlatList,
-  Pressable,
-} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import {Container, Header, Content, Footer} from 'native-base';
 import {Icon, SearchBar} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
 
 export default function HeaderHome(props) {
+  const navigation = useNavigation();
   return (
     <Header
       androidStatusBarColor="#118b0d"
@@ -18,7 +13,7 @@ export default function HeaderHome(props) {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
-        shadowColor: 'transparent',
+        shadowColor: 'black',
         shadowOffset: {
           width: 0,
           height: 0,
@@ -26,14 +21,15 @@ export default function HeaderHome(props) {
         shadowOpacity: 0,
         shadowRadius: 0,
         // elevation: 5,
-        // height: 100,
         flexDirection: 'row',
         width: '100%',
         padding: 0,
+        borderBottomColor: 'rgba(201, 196, 196, 0.55)',
+        borderBottomWidth: 1,
         // width: Dimensions.get('window').width,
         // borderBottomRightRadius: 15,
         // borderBottomLeftRadius: 15,
-        zIndex: 25,
+        // zIndex: 25,
       }}>
       <Pressable style={{flex: 0.1, marginLeft: 0}}>
         <Icon name="arrow-left" size={20} color="#646a72" type="feather" />
@@ -77,10 +73,10 @@ export default function HeaderHome(props) {
         }}
         inputStyle={{
           margin: 0,
-          color: 'black',
+          color: '#000000',
           borderWidth: 0,
         }}
-        placeholder="Search Books"
+        placeholder="Cari di sini..."
         placeholderTextColor="rgba(58, 61, 66, 0.4)"
         // onChangeText={updateSearch}
         // onEndEditing={() => {
@@ -100,7 +96,9 @@ export default function HeaderHome(props) {
       <Pressable style={{flex: 0.1}}>
         <Icon name="home" size={18} color="#646a72" type="entypo" />
       </Pressable>
-      <Pressable style={{flex: 0.1}}>
+      <Pressable
+        style={{flex: 0.1}}
+        onPress={() => navigation.navigate('Cart')}>
         <Icon name="shopping-cart" size={18} color="#646a72" type="feather" />
         <View
           style={{
@@ -121,7 +119,7 @@ export default function HeaderHome(props) {
               fontSize: 10,
               borderRadius: 15,
             }}>
-            100
+            11
           </Text>
         </View>
       </Pressable>

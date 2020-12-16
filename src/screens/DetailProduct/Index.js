@@ -126,7 +126,7 @@ export default function Index(props) {
                   alignItems: 'center',
                 }}>
                 <Text numberOfLines={2} style={styles.textProductfrom}>
-                  Product dari
+                  Produk dari
                 </Text>
                 <Thumbnail
                   source={route.params.official ? official : unofficial}

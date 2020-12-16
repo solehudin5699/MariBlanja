@@ -195,9 +195,9 @@ const Item = ({item}) => {
                   fontSize: 15,
                   color: '#000000',
                   lineHeight: 18,
-                  fontWeight: '100',
                   fontFamily: 'arial',
                   marginBottom: 3,
+                  fontWeight: '600',
                 }}>
                 {item.nameProduct}
               </Text>
@@ -319,7 +319,7 @@ export default function Content(props) {
     <View
       style={{
         flex: 1,
-        paddingTop: 1.5,
+        // paddingTop: 1.5,
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
         width: Dimensions.get('window').width,
