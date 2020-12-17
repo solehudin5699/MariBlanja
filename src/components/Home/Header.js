@@ -1,11 +1,13 @@
 import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import {Container, Header, Content, Footer} from 'native-base';
+import {useSelector} from 'react-redux';
 import {Icon, SearchBar} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 
 export default function HeaderHome(props) {
   const navigation = useNavigation();
+  const {cart} = useSelector((state) => state.cart);
   return (
     <Header
       androidStatusBarColor="#118b0d"
@@ -119,7 +121,7 @@ export default function HeaderHome(props) {
               fontSize: 10,
               borderRadius: 15,
             }}>
-            11
+            {cart.length}
           </Text>
         </View>
       </Pressable>

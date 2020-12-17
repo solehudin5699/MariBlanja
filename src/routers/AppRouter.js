@@ -2,6 +2,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
+import SplashScreen from '../screens/SplashSreen/Index';
 import Home from '../screens/Home/Index';
 import DetailProduct from '../screens/DetailProduct/Index';
 import Cart from '../screens/Cart/Index';
@@ -23,6 +24,13 @@ export default function AppRoutes() {
             fontWeight: 'bold',
           },
         }}>
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="Home"
           component={Home}

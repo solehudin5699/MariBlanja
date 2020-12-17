@@ -42,7 +42,7 @@ export default function HeaderCart(props) {
           size={23}
           color="#646a72"
           type="feather"
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('Home')}
         />
       </Pressable>
       <View style={{flex: 0.9}}>

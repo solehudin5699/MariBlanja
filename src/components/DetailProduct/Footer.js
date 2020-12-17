@@ -1,30 +1,63 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Pressable} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, Footer} from 'native-base';
 import {Icon} from 'react-native-elements';
 import {useRoute, useNavigation} from '@react-navigation/native';
+import ModalToCart from './ModalToCart';
+import {addToCart} from '../../redux/actions/cart/cart';
 
 export default function FooterDetailProduct(props) {
+  const [modal, setModal] = useState(false);
+  const handleCloseModal = () => {
+    setModal(false);
+  };
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
+  const addToCartHandle = () => {
+    if (isReadyInCart) {
+      navigation.navigate('Cart');
+    } else {
+      dispatch(addToCart({product: route.params, store: route.params.store}));
+      setModal(true);
+    }
+  };
+  const {cart, store} = useSelector((state) => state.cart);
+  console.log(cart);
+  console.log(store);
+  const isReadyInCart = cart.find((item) => item.id === route.params.id);
   return (
-    <Footer style={styles.footer}>
-      <Button style={styles.button_chat}>
-        <Icon
-          name="chatbubble-ellipses"
-          size={25}
-          color="#118b0d"
-          type="ionicon"
-          style={{alignSelf: 'center'}}
-        />
-      </Button>
-      <Button style={styles.button_buy}>
-        <Text style={styles.button_buyText}>Beli</Text>
-      </Button>
-      <Button style={styles.button_addToCart}>
-        <Text style={styles.button_addToCartText}>Tambah ke Keranjang</Text>
-      </Button>
-    </Footer>
+    <>
+      <Footer style={styles.footer}>
+        <Button style={styles.button_chat}>
+          <Icon
+            name="chatbubble-ellipses"
+            size={25}
+            color="#118b0d"
+            type="ionicon"
+            style={{alignSelf: 'center'}}
+          />
+        </Button>
+        <Button style={styles.button_buy}>
+          <Text style={styles.button_buyText}>Beli</Text>
+        </Button>
+        <Button
+          style={styles.button_addToCart}
+          onPress={() => addToCartHandle()}>
+          <Text style={styles.button_addToCartText}>
+            {isReadyInCart
+              ? 'Sudah di keranjang, lihat keranjang?'
+              : 'Tambah ke Keranjang'}
+          </Text>
+        </Button>
+      </Footer>
+      <ModalToCart
+        isShow={modal}
+        closeModal={handleCloseModal}
+        data={route.params}
+      />
+    </>
   );
 }
 

@@ -58,7 +58,7 @@ const data = [
   {
     id: 3,
     nameProduct: 'React-Native 3',
-    store: 'PT. Gramedia',
+    store: 'PT. BookStore',
     official: true,
     image: [example, example, example, example, example],
     freeOngkir: true,

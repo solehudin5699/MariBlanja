@@ -1,22 +1,35 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
+import {
+  selectAllProducts,
+  setTotalPrice,
+  deleteSelectedProduct,
+} from '../../redux/actions/cart/cart';
 
 export default function HeaderCart() {
-  const [isSelectAll, setSelectAll] = useState(false);
+  const dispatch = useDispatch();
+  const {cart} = useSelector((state) => state.cart);
   return (
     <View style={styles.allSelect}>
       <View style={styles.allSelect_Checkbox}>
         <CheckBox
           tintColors={{true: '#118b0d', false: '#A5A1A1'}}
-          value={isSelectAll}
+          value={!Boolean(cart.find((item) => item.isSelected === false))}
           onValueChange={() => {
-            setSelectAll(!isSelectAll);
+            dispatch(selectAllProducts());
+            dispatch(setTotalPrice());
           }}
         />
         <Text style={styles.allSelect_Text}>Pilih semua produk</Text>
       </View>
-      <Pressable style={styles.allSelect_Delete}>
+      <Pressable
+        style={styles.allSelect_Delete}
+        onPress={() => {
+          dispatch(deleteSelectedProduct());
+          dispatch(setTotalPrice());
+        }}>
         <Text style={styles.allSelect_DeleteText}>Hapus</Text>
       </Pressable>
     </View>

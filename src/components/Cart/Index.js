@@ -11,6 +11,7 @@ import {
   Thumbnail,
   Button,
 } from 'native-base';
+import {useDispatch, useSelector} from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
 import {Icon, Input} from 'react-native-elements';
 import official from '../../assets/images/official.png';
@@ -19,195 +20,250 @@ import bebasongkir from '../../assets/images/bebasongkir.png';
 import exampleImage from '../../assets/images/kemeja.png';
 import HeaderCart from './Header';
 import FooterCart from './Footer';
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  setTotalPrice,
+  selectProduct,
+  selectAllProductPerStore,
+  deleteProduct,
+} from '../../redux/actions/cart/cart';
 
 export default function Index() {
   const [isSelectAll, setSelectAll] = useState(false);
   function formatRupiah(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
+  const {cart, store} = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  console.log(cart);
   return (
     <Container>
       <HeaderCart />
       <View style={{flex: 1}}>
         <FlatList
-          data={[1, 2, 3, 4, 5]}
+          data={store}
           numColumns={1}
           key={1}
           renderItem={({item, index}) => {
             return (
               <>
-                <Card
-                  style={{
-                    marginTop: index === 0 ? -3 : -1,
-                  }}>
-                  <CardItem
+                {cart.find((cartItem) => cartItem.store === item) ? (
+                  <Card
                     style={{
-                      // marginVertical: -2,
-                      // marginTop: index === 0 ? -3 : -1,
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
+                      marginTop: index === 0 ? -3 : -1,
                     }}>
-                    <View style={styles.store_Container}>
-                      <CheckBox
-                        tintColors={{true: '#118b0d', false: '#C9C4C4'}}
-                        value={isSelectAll}
-                        onValueChange={() => {
-                          setSelectAll(!isSelectAll);
-                        }}
-                      />
-                      <Text>
-                        Toko
-                        <Text style={styles.store_Name}> Ibagstore</Text>
+                    <CardItem
+                      style={{
+                        // marginVertical: -2,
+                        // marginTop: index === 0 ? -3 : -1,
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                      }}>
+                      <View style={styles.store_Container}>
+                        <CheckBox
+                          tintColors={{true: '#118b0d', false: '#C9C4C4'}}
+                          value={
+                            !Boolean(
+                              cart.find((itemCart) => {
+                                return (
+                                  itemCart.store === item &&
+                                  !itemCart.isSelected
+                                );
+                              }),
+                            )
+                          }
+                          onValueChange={() => {
+                            dispatch(selectAllProductPerStore(item));
+                            dispatch(setTotalPrice());
+                          }}
+                        />
+                        <Text>
+                          Toko <Text style={styles.store_Name}>{item}</Text>
+                        </Text>
+
+                        <Thumbnail
+                          source={
+                            cart.find((cartItem) => cartItem.store === item)
+                              .official
+                              ? official
+                              : unofficial
+                          }
+                          style={styles.store_OfficialUnOfficial}
+                        />
+                      </View>
+                      <Text style={styles.store_Location}>
+                        {
+                          cart.find((cartItem) => cartItem.store === item)
+                            .location
+                        }
                       </Text>
-
-                      <Thumbnail
-                        source={official}
-                        style={styles.store_OfficialUnOfficial}
-                      />
-                    </View>
-                    <Text style={styles.store_Location}>Kota Depok</Text>
-                  </CardItem>
-                  {[1, 2].map((product, indexProduct) => {
-                    return (
-                      <CardItem
-                        key={indexProduct}
-                        style={{
-                          flexDirection: 'column',
-                          alignItems: 'flex-start',
-                        }}>
-                        <View style={styles.detailProd_Container}>
-                          <View style={{flex: 0.1}}>
-                            <CheckBox
-                              tintColors={{true: '#118b0d', false: '#C9C4C4'}}
-                              value={isSelectAll}
-                              onValueChange={() => {
-                                setSelectAll(!isSelectAll);
-                              }}
-                            />
-                          </View>
-                          <View style={styles.detailProd_ImgWrap}>
-                            <Thumbnail
-                              source={exampleImage}
-                              style={{
-                                width: 55,
-                                height: 55,
-                                borderRadius: 3.5,
-                              }}
-                            />
-                          </View>
-                          <View style={styles.detailProd_InfoWrap}>
-                            <Text
-                              numberOfLines={2}
-                              style={styles.detailProd_Name}>
-                              Name Produk pakaian yang dijual OLEH PENJUAL ABC
-                              Name Produk pakaian yang dijual OLEH PENJUAL ABC
-                            </Text>
-                            {true ? (
-                              <View>
+                    </CardItem>
+                    {cart
+                      .filter((cartItem) => cartItem.store === item)
+                      .map((product, indexProduct) => {
+                        return (
+                          <CardItem
+                            key={indexProduct}
+                            style={{
+                              flexDirection: 'column',
+                              alignItems: 'flex-start',
+                            }}>
+                            <View style={styles.detailProd_Container}>
+                              <View style={{flex: 0.1}}>
+                                <CheckBox
+                                  tintColors={{
+                                    true: '#118b0d',
+                                    false: '#C9C4C4',
+                                  }}
+                                  value={product.isSelected}
+                                  onValueChange={() => {
+                                    dispatch(selectProduct(product.id));
+                                    dispatch(setTotalPrice());
+                                  }}
+                                />
+                              </View>
+                              <View style={styles.detailProd_ImgWrap}>
                                 <Thumbnail
-                                  source={bebasongkir}
-                                  style={styles.detailProd_BebasOngkir}
-                                />
-                              </View>
-                            ) : null}
-                            <Text style={styles.detailProd_Price}>
-                              Rp{formatRupiah(30000)}
-                            </Text>
-
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: 15,
-                              }}>
-                              <View
-                                style={{
-                                  flex: 0.2,
-                                  alignItems: 'center',
-                                }}>
-                                <Icon
-                                  name="heart"
-                                  size={25}
-                                  color="#b4bbc4"
-                                  type="ionicon"
-                                  style={{alignSelf: 'center'}}
-                                />
-                              </View>
-                              <View
-                                style={{
-                                  flex: 0.2,
-                                  alignItems: 'center',
-                                }}>
-                                <Icon
-                                  name="delete"
-                                  size={25}
-                                  color="#b4bbc4"
-                                  type="material"
-                                  style={{alignSelf: 'center'}}
-                                />
-                              </View>
-                              <View style={{flex: 0.2, alignItems: 'center'}}>
-                                <Icon
-                                  name="remove-circle"
-                                  size={25}
-                                  color="#b4bbc4"
-                                  type="ionicon"
-                                  style={{alignSelf: 'center'}}
-                                />
-                              </View>
-                              <View
-                                style={{
-                                  flex: 0.2,
-                                  alignItems: 'center',
-                                  marginHorizontal: -5,
-                                  borderBottomColor: '#118b0d',
-                                  borderBottomWidth: 1.5,
-                                }}>
-                                <Input
+                                  source={product.image[0]}
                                   style={{
-                                    textAlign: 'center',
-                                    width: '100%',
-                                    fontSize: 17,
+                                    width: 55,
+                                    height: 55,
+                                    borderRadius: 3.5,
                                   }}
-                                  keyboardType="decimal-pad"
-                                  inputContainerStyle={{
-                                    borderBottomColor: 'transparent',
-                                    height: 25,
-                                  }}
-                                  containerStyle={{
-                                    height: 25,
-                                    paddingHorizontal: -5,
-                                  }}
-                                  // onChangeText={handleChange('email')}
-                                  // onBlur={handleBlur('email')}
-                                  value={'9000'}
                                 />
                               </View>
-                              <View style={{flex: 0.2, alignItems: 'center'}}>
-                                <Icon
-                                  name="add-circle"
-                                  size={25}
-                                  color="#118b0d"
-                                  type="ionicon"
-                                  style={{alignSelf: 'center'}}
-                                />
+                              <View style={styles.detailProd_InfoWrap}>
+                                <Text
+                                  numberOfLines={2}
+                                  style={styles.detailProd_Name}>
+                                  {product.nameProduct}
+                                </Text>
+                                {product.freeOngkir ? (
+                                  <View>
+                                    <Thumbnail
+                                      source={bebasongkir}
+                                      style={styles.detailProd_BebasOngkir}
+                                    />
+                                  </View>
+                                ) : null}
+                                <Text style={styles.detailProd_Price}>
+                                  Rp{formatRupiah(product.price)}
+                                </Text>
+
+                                <View
+                                  style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    marginTop: 15,
+                                  }}>
+                                  <View
+                                    style={{
+                                      flex: 0.2,
+                                      alignItems: 'center',
+                                    }}>
+                                    <Icon
+                                      name="heart"
+                                      size={25}
+                                      color="#b4bbc4"
+                                      type="ionicon"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </View>
+                                  <Pressable
+                                    onPress={() => {
+                                      dispatch(deleteProduct(product.id));
+                                      dispatch(setTotalPrice());
+                                    }}
+                                    style={{
+                                      flex: 0.2,
+                                      alignItems: 'center',
+                                    }}>
+                                    <Icon
+                                      name="delete"
+                                      size={25}
+                                      color="#b4bbc4"
+                                      type="material"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </Pressable>
+                                  <Pressable
+                                    onPress={() => {
+                                      dispatch(decreaseQuantity(product.id));
+                                      dispatch(setTotalPrice());
+                                    }}
+                                    style={{flex: 0.2, alignItems: 'center'}}>
+                                    <Icon
+                                      name="remove-circle"
+                                      size={25}
+                                      color={
+                                        product.numOrder > 1
+                                          ? '#118b0d'
+                                          : '#b4bbc4'
+                                      }
+                                      type="ionicon"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </Pressable>
+                                  <View
+                                    style={{
+                                      flex: 0.2,
+                                      alignItems: 'center',
+                                      marginHorizontal: -5,
+                                      borderBottomColor: '#118b0d',
+                                      borderBottomWidth: 1.5,
+                                    }}>
+                                    <Input
+                                      style={{
+                                        textAlign: 'center',
+                                        width: '100%',
+                                        fontSize: 17,
+                                      }}
+                                      keyboardType="decimal-pad"
+                                      inputContainerStyle={{
+                                        borderBottomColor: 'transparent',
+                                        height: 25,
+                                      }}
+                                      containerStyle={{
+                                        height: 25,
+                                        paddingHorizontal: -5,
+                                      }}
+                                      // onChangeText={handleChange('email')}
+                                      // onBlur={handleBlur('email')}
+                                      value={product.numOrder.toString()}
+                                    />
+                                  </View>
+                                  <Pressable
+                                    onPress={() => {
+                                      dispatch(increaseQuantity(product.id));
+                                      dispatch(setTotalPrice());
+                                    }}
+                                    style={{flex: 0.2, alignItems: 'center'}}>
+                                    <Icon
+                                      name="add-circle"
+                                      size={25}
+                                      color="#118b0d"
+                                      type="ionicon"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </Pressable>
+                                </View>
                               </View>
                             </View>
-                          </View>
-                        </View>
-                        <Pressable
-                          style={{
-                            alignItems: 'flex-start',
-                            marginTop: 5,
-                          }}>
-                          <Text style={styles.writeNote_forStore}>
-                            Tulis Catatan untuk Toko
-                          </Text>
-                        </Pressable>
-                      </CardItem>
-                    );
-                  })}
-                </Card>
+                            <Pressable
+                              style={{
+                                alignItems: 'flex-start',
+                                marginTop: 5,
+                              }}>
+                              <Text style={styles.writeNote_forStore}>
+                                Tulis Catatan untuk Toko
+                              </Text>
+                            </Pressable>
+                          </CardItem>
+                        );
+                      })}
+                  </Card>
+                ) : null}
               </>
             );
           }}

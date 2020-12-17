@@ -11,24 +11,37 @@ import {
   Thumbnail,
   Button,
 } from 'native-base';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteAll, setTotalPrice} from '../../redux/actions/cart/cart';
 
 export default function FooterCart() {
   const [isSelectAll, setSelectAll] = useState(false);
   function formatRupiah(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setTotalPrice());
+  }, [dispatch]);
+  const {totalPriceSelected, totalNumOrder} = useSelector(
+    (state) => state.cart,
+  );
   return (
     <Footer style={styles.footer}>
       <View style={styles.container}>
         <View style={styles.totalPrice_wrap}>
           <Text style={styles.totalPrice_text}>Total Harga</Text>
           <Text style={styles.totalPrice_value}>
-            Rp{formatRupiah(2001800)}{' '}
+            Rp{formatRupiah(Number(totalPriceSelected))}{' '}
           </Text>
         </View>
         <View style={styles.button_wrap}>
-          <Button style={styles.button_button}>
-            <Text style={styles.button_text}>Beli (1)</Text>
+          <Button
+            style={styles.button_button}
+            onPress={() => dispatch(deleteAll())}>
+            <Text style={styles.button_text}>
+              {totalNumOrder < 99 ? `Beli (${totalNumOrder})` : `Beli (99+)`}
+            </Text>
           </Button>
         </View>
       </View>
