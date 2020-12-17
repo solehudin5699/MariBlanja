@@ -4,7 +4,7 @@ import {Icon, Badge} from 'react-native-elements';
 import example from '../../assets/images/coverbook.jpg';
 import MasonryLayout from './MasonryLayout';
 import ItemProduct from './ItemProduct';
-const data = [
+const dataDummy = [
   {
     id: 1,
     nameProduct: 'React-Native 1',
@@ -127,6 +127,7 @@ const data = [
   },
 ];
 
+import {data} from '../../dataDummy/data';
 export default function ContentHome(props) {
   return (
     <View style={styles.container}>
