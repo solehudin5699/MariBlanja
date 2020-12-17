@@ -39,11 +39,11 @@ const SplashScreen = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Thumbnail source={logoIcon} style={{width: 92, height: 131.5}} />
+        <Thumbnail source={logoIcon} style={{width: 100, height: 100}} />
         <Text style={{color: '#fa591c', fontSize: 32, fontWeight: 'bold'}}>
           Mari
           <Text style={{color: '#FFFFFF', fontSize: 32, fontWeight: 'bold'}}>
-            Blanja
+            blanja
           </Text>
         </Text>
       </View>

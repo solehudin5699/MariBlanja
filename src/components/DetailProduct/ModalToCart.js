@@ -10,18 +10,14 @@ import {
 import {Button, Card, CardItem, Thumbnail} from 'native-base';
 import Modal from 'react-native-modal';
 import {Icon} from 'react-native-elements';
-import example from '../../assets/images/kemeja.png';
 import bebasongkir from '../../assets/images/bebasongkir.png';
-import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-// import {resetRegist} from '../../redux/actions/users/auth';
 
 const window = Dimensions.get('window');
 const width = window.width * window.scale;
 const height = window.height * window.scale;
 
 const ModalToCart = (props) => {
-  // const dispatch = useDispatch();
   const navigation = useNavigation();
   return (
     <>
@@ -55,7 +51,9 @@ const ModalToCart = (props) => {
         backdropTransitionInTiming={0}>
         <View style={styles.container}>
           <Pressable
-            onPress={() => props.closeModal()}
+            onPress={() => {
+              props.closeModal();
+            }}
             style={styles.closeIcon}>
             <Icon name="close" size={25} color="#646a72" type="ionicon" />
           </Pressable>
@@ -70,7 +68,6 @@ const ModalToCart = (props) => {
                 <View
                   style={{
                     flexDirection: 'row',
-                    // paddingHorizontal: 15,
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
                   }}>
@@ -108,7 +105,7 @@ const ModalToCart = (props) => {
                     props.closeModal();
                     navigation.navigate('Cart');
                   }}
-                  style={styles.button_nutton}>
+                  style={styles.button_button}>
                   <Text style={styles.button_text}>Lihat Keranjang</Text>
                 </Button>
               </CardItem>
@@ -154,7 +151,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     marginRight: 35,
   },
-  button_nutton: {
+  button_button: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

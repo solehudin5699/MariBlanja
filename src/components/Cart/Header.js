@@ -12,27 +12,33 @@ export default function HeaderCart() {
   const dispatch = useDispatch();
   const {cart} = useSelector((state) => state.cart);
   return (
-    <View style={styles.allSelect}>
-      <View style={styles.allSelect_Checkbox}>
-        <CheckBox
-          tintColors={{true: '#118b0d', false: '#A5A1A1'}}
-          value={!Boolean(cart.find((item) => item.isSelected === false))}
-          onValueChange={() => {
-            dispatch(selectAllProducts());
+    <>
+      <View style={styles.allSelect}>
+        <View style={styles.allSelect_Checkbox}>
+          <CheckBox
+            tintColors={{true: '#118b0d', false: '#A5A1A1'}}
+            value={!Boolean(cart.find((item) => item.isSelected === false))}
+            onValueChange={() => {
+              dispatch(
+                selectAllProducts(
+                  !Boolean(cart.find((item) => item.isSelected === false)),
+                ),
+              );
+              dispatch(setTotalPrice());
+            }}
+          />
+          <Text style={styles.allSelect_Text}>Pilih semua produk</Text>
+        </View>
+        <Pressable
+          style={styles.allSelect_Delete}
+          onPress={() => {
+            dispatch(deleteSelectedProduct());
             dispatch(setTotalPrice());
-          }}
-        />
-        <Text style={styles.allSelect_Text}>Pilih semua produk</Text>
+          }}>
+          <Text style={styles.allSelect_DeleteText}>Hapus</Text>
+        </Pressable>
       </View>
-      <Pressable
-        style={styles.allSelect_Delete}
-        onPress={() => {
-          dispatch(deleteSelectedProduct());
-          dispatch(setTotalPrice());
-        }}>
-        <Text style={styles.allSelect_DeleteText}>Hapus</Text>
-      </Pressable>
-    </View>
+    </>
   );
 }
 

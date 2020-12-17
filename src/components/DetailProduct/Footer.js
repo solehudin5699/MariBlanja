@@ -23,9 +23,7 @@ export default function FooterDetailProduct(props) {
       setModal(true);
     }
   };
-  const {cart, store} = useSelector((state) => state.cart);
-  console.log(cart);
-  console.log(store);
+  const {cart} = useSelector((state) => state.cart);
   const isReadyInCart = cart.find((item) => item.id === route.params.id);
   return (
     <>

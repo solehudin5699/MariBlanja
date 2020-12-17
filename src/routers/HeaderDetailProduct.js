@@ -22,23 +22,20 @@ export default function HeaderDetailProduct(props) {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
-        shadowColor: 'transparent',
-        shadowOffset: {
-          width: 0,
-          height: 0,
-        },
-        shadowOpacity: 0,
-        shadowRadius: 0,
+        // shadowColor: 'transparent',
+        // shadowOffset: {
+        //   width: 0,
+        //   height: 0,
+        // },
+        // shadowOpacity: 0,
+        // shadowRadius: 0,
         // elevation: 5,
         // height: 100,
         flexDirection: 'row',
         width: '100%',
         padding: 0,
-        // width: Dimensions.get('window').width,
-        // borderBottomRightRadius: 15,
-        // borderBottomLeftRadius: 15,
       }}>
-      <Pressable style={{flex: 0.1, marginLeft: 0}}>
+      <Pressable style={{flex: 0.11, marginLeft: 0}}>
         <Icon
           name="arrow-left"
           size={23}
@@ -47,7 +44,7 @@ export default function HeaderDetailProduct(props) {
           onPress={() => navigation.goBack()}
         />
       </Pressable>
-      <View style={{flex: 0.7}}>
+      <View style={{flex: 0.67}}>
         <Text
           style={{
             color: '#646a72',
@@ -60,7 +57,7 @@ export default function HeaderDetailProduct(props) {
         </Text>
       </View>
       <Pressable
-        style={{flex: 0.1}}
+        style={{flex: 0.11}}
         onPress={() => navigation.navigate('Cart')}>
         <Icon name="shopping-cart" size={18} color="#646a72" type="feather" />
         <View
@@ -70,7 +67,7 @@ export default function HeaderDetailProduct(props) {
             width: 18,
             borderRadius: 15,
             backgroundColor: '#d8414a',
-            left: 18,
+            right: -3,
             top: -8,
             zIndex: 10,
             justifyContent: 'center',
@@ -86,7 +83,7 @@ export default function HeaderDetailProduct(props) {
           </Text>
         </View>
       </Pressable>
-      <Pressable style={{flex: 0.1}}>
+      <Pressable style={{flex: 0.11}}>
         <Icon
           name="ellipsis-vertical"
           size={18}

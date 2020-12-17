@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Dimensions, View, ScrollView} from 'react-native';
 
-export default function Index({data, renderItem}) {
+export default function MasonryLayout({data, renderItem}) {
   return (
     <ScrollView>
       <View

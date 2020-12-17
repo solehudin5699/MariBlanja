@@ -28,15 +28,16 @@ export const selectProduct = (id) => {
     payload: id,
   };
 };
-export const selectAllProductPerStore = (storeName) => {
+export const selectAllProductPerStore = (storeName, logic) => {
   return {
     type: cart.selectAllProductPerStore,
-    payload: storeName,
+    payload: {storeName, logic},
   };
 };
-export const selectAllProducts = () => {
+export const selectAllProducts = (logic) => {
   return {
     type: cart.selectAllProducts,
+    payload: logic,
   };
 };
 export const deleteSelectedProduct = () => {

@@ -20,23 +20,19 @@ export default function HeaderCart(props) {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
-        shadowColor: 'transparent',
-        shadowOffset: {
-          width: 0,
-          height: 0,
-        },
-        shadowOpacity: 0,
-        shadowRadius: 0,
-        // elevation: 5,
+        // shadowColor: 'transparent',
+        // shadowOffset: {
+        //   width: 0,
+        //   height: 0,
+        // },
+        // shadowOpacity: 0,
+        // shadowRadius: 0,
         // height: 100,
         flexDirection: 'row',
         width: '100%',
         padding: 0,
-        // width: Dimensions.get('window').width,
-        // borderBottomRightRadius: 15,
-        // borderBottomLeftRadius: 15,
       }}>
-      <Pressable style={{flex: 0.1, marginLeft: 0}}>
+      <Pressable style={{flex: 0.11, marginLeft: 0}}>
         <Icon
           name="arrow-left"
           size={23}
@@ -45,7 +41,7 @@ export default function HeaderCart(props) {
           onPress={() => navigation.navigate('Home')}
         />
       </Pressable>
-      <View style={{flex: 0.9}}>
+      <View style={{flex: 0.89}}>
         <Text
           style={{
             color: '#646a72',

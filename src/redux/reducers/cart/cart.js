@@ -5,6 +5,8 @@ const initalState = {
   store: [],
   totalPriceSelected: 0,
   totalNumOrder: 0,
+
+  isSelectedAll: true,
 };
 const cartReducer = (prevState = initalState, action) => {
   switch (action.type) {
@@ -118,10 +120,11 @@ const cartReducer = (prevState = initalState, action) => {
     }
     case cart.selectAllProductPerStore: {
       let newCart = prevState.cart.map((item) => {
-        if (item.store === action.payload) {
+        if (item.store === action.payload.storeName) {
+          let newStatus = action.payload.logic ? false : true;
           return {
             ...item,
-            isSelected: !item.isSelected,
+            isSelected: newStatus,
           };
         } else {
           return item;
@@ -134,9 +137,10 @@ const cartReducer = (prevState = initalState, action) => {
     }
     case cart.selectAllProducts: {
       let newCart = prevState.cart.map((item) => {
+        let newStatus = action.payload ? false : true;
         return {
           ...item,
-          isSelected: !item.isSelected,
+          isSelected: newStatus,
         };
       });
       return {

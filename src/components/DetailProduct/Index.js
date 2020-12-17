@@ -1,18 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, Image, Text, View, Pressable} from 'react-native';
-import {
-  Container,
-  Header,
-  Button,
-  Content,
-  CardItem,
-  Card,
-  Thumbnail,
-  Footer,
-} from 'native-base';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Container, Content, CardItem, Card, Thumbnail} from 'native-base';
 import {Icon} from 'react-native-elements';
-import {useRoute, useNavigation} from '@react-navigation/native';
-import Swiper from 'react-native-swiper';
+import {useRoute} from '@react-navigation/native';
 import official from '../../assets/images/official.png';
 import unofficial from '../../assets/images/unofficial.png';
 import bebasongkir from '../../assets/images/bebasongkir.png';
@@ -22,7 +12,6 @@ import SwiperImage from './SwiperImage';
 import FooterDetailProduct from './Footer';
 
 export default function Index(props) {
-  const navigation = useNavigation();
   const route = useRoute();
   function formatRupiah(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
