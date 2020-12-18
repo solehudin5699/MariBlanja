@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, Dimensions, StatusBar, StyleSheet} from 'react-native';
 import {Button} from 'native-base';
 import Modal from 'react-native-modal';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 
@@ -13,6 +13,7 @@ const height = window.height * window.scale;
 const ModalProfile = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const {user} = useSelector((state) => state.user);
   return (
     <>
       <StatusBar backgroundColor="#118b0d" />
@@ -50,7 +51,7 @@ const ModalProfile = (props) => {
               color="#118b0d"
               type="ionicon"
             />
-            <Text style={styles.nameOrUsername}>Name</Text>
+            <Text style={styles.nameOrUsername}>{user.username}</Text>
           </View>
 
           <View style={styles.container_button}>
