@@ -14,36 +14,27 @@ export const loginUser = (data) => {
     return auth()
       .signInWithEmailAndPassword(user.email, user.password)
       .then((data) => {
-        if (!data.user.emailVerified) {
-          let error = {
-            status: 500,
-            msg:
-              'Email has not been verified, please check email for verifying',
-          };
-          dispatch(loginRejected(error));
-        } else {
-          return data.user.getIdToken().then((token) => {
-            return firestore()
-              .collection('users')
-              .where('email', '==', user.email)
-              .get()
-              .then((dataUser) => {
-                let dataLogin;
-                dataUser.forEach((doc) => {
-                  dataLogin = {
-                    userId: doc.data().userId,
-                    name: doc.data().name,
-                    username: doc.data().username,
-                    email: doc.data().email,
-                    imageUrl: doc.data().imageUrl,
-                    token,
-                    status: 200,
-                  };
-                });
-                dispatch(loginFulfilled(dataLogin));
+        return data.user.getIdToken().then((token) => {
+          return firestore()
+            .collection('users')
+            .where('email', '==', user.email)
+            .get()
+            .then((dataUser) => {
+              let dataLogin;
+              dataUser.forEach((doc) => {
+                dataLogin = {
+                  userId: doc.data().userId,
+                  name: doc.data().name,
+                  username: doc.data().username,
+                  email: doc.data().email,
+                  imageUrl: doc.data().imageUrl,
+                  token,
+                  status: 200,
+                };
               });
-          });
-        }
+              dispatch(loginFulfilled(dataLogin));
+            });
+        });
       })
 
       .catch((err) => {
@@ -85,6 +76,7 @@ export const registUser = (data) => {
       username: data.username,
     };
     let token, userId;
+    let userCredentials;
     firestore()
       .collection('users')
       .doc(`${newUser.username}`)
@@ -103,7 +95,7 @@ export const registUser = (data) => {
             })
             .then((idtoken) => {
               token = idtoken;
-              const userCredentials = {
+              userCredentials = {
                 name: '',
                 username: newUser.username,
                 email: newUser.email,
@@ -118,23 +110,13 @@ export const registUser = (data) => {
                 .set(userCredentials);
             })
             .then(() => {
-              auth()
-                .currentUser.sendEmailVerification()
-                .then(() => {
-                  let result = {
-                    status: 200,
-                    msg:
-                      'Registration is suceess, please check your email for verivication',
-                  };
-                  dispatch(registFulfilled(result));
-                })
-                .catch((err) => {
-                  let error = {
-                    status: 500,
-                    msg: "Can't send email verification",
-                  };
-                  dispatch(registRejected(error));
-                });
+              let result = {
+                status: 200,
+                msg:
+                  'Registration is suceess, please check your email for verivication',
+              };
+              dispatch(registFulfilled(result));
+              dispatch(loginFulfilled(userCredentials));
             });
         }
       })
