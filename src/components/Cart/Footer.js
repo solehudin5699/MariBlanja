@@ -24,6 +24,7 @@ export default function FooterCart() {
   const data = cart.filter((item) => item.isSelected === true);
   const handleBuy = () => {
     dispatch(deleteSelectedProduct());
+    dispatch(setTotalPrice());
   };
   return (
     <>

@@ -8,11 +8,6 @@ export const regist = {
   fulfilled: 'REGIST_FULFILLED',
   rejected: 'REGIST_REJECTED',
 };
-export const update = {
-  pending: 'UPDATE_PENDING',
-  fulfilled: 'UPDATE_FULFILLED',
-  rejected: 'UPDATE_REJECTED',
-};
 export const logout = {
   logout: 'LOGOUT_USER',
 };

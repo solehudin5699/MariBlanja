@@ -3,10 +3,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import SplashScreen from '../screens/SplashSreen/Index';
+import Login from '../screens/Login/Index';
+import Regist from '../screens/Regist/Index';
 import Home from '../screens/Home/Index';
 import DetailProduct from '../screens/DetailProduct/Index';
 import Cart from '../screens/Cart/Index';
-import {Header} from 'native-base';
 import HeaderDetailProduct from './HeaderDetailProduct';
 import HeaderCart from './HeaderCart';
 
@@ -27,6 +28,20 @@ export default function AppRoutes() {
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Regist}
           options={{
             headerShown: false,
           }}

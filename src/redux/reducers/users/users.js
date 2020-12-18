@@ -1,10 +1,4 @@
-import {
-  login,
-  regist,
-  logout,
-  reset,
-  update,
-} from '../../actions/users/actionTypes';
+import {login, regist, logout, reset} from '../../actions/users/actionTypes';
 
 const initialState = {
   user: {},
@@ -19,11 +13,6 @@ const initialState = {
   isRegistPending: false,
   isRegistFulfilled: false,
   isRegistRejected: false,
-
-  errorUpdate: undefined,
-  isUpdatePending: false,
-  isUpdateFulfilled: false,
-  isUpdateRejected: false,
 };
 
 const authReducer = (prevState = initialState, action) => {
@@ -87,29 +76,7 @@ const authReducer = (prevState = initialState, action) => {
         isRegistFulfilled: false,
         isRegistRejected: false,
       };
-    case update.pending:
-      return {
-        ...prevState,
-        isUpdatePending: true,
-      };
-    case update.fulfilled: {
-      let newUserData = {...prevState.user, imageUrl: action.payload.imageUrl};
-      return {
-        ...prevState,
-        isUpdatePending: false,
-        isUpdateRejected: false,
-        isUpdateFulfilled: true,
-        user: newUserData,
-      };
-    }
-    case update.rejected:
-      return {
-        ...prevState,
-        isUpdatePending: false,
-        isUpdateRejected: true,
-        isUpdateFulfilled: false,
-        errorUpdate: action.payload,
-      };
+
     case reset.error:
       return {
         ...prevState,

@@ -201,6 +201,7 @@ export default function ItemProduct({item}) {
         closeModal={setModalShortCutMenu}
         handleAddToCart={handleAddToCart}
         openModalToCart={setModalToCart}
+        data={item}
       />
       <ModalToCart
         isShow={modalToCart}

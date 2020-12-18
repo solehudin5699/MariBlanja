@@ -157,19 +157,17 @@ const registRejected = (error) => {
 //LOG OUT
 export const logoutUser = () => {
   return (dispatch) => {
+    dispatch({
+      type: logout.logout,
+      payload: true,
+    });
     auth()
       .signOut()
       .then(() => {
-        dispatch({
-          type: logout.logout,
-          payload: true,
-        });
+        console.log('Success logout');
       })
       .catch((err) => {
-        dispatch({
-          type: logout.logout,
-          payload: false,
-        });
+        console.log('Gagal logout');
       });
   };
 };

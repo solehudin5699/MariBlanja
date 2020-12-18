@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "307503576523",
+    "project_id": "mariblanja-ea976",
+    "storage_bucket": "mariblanja-ea976.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307503576523:android:02076778739fc84a80724e",
+        "android_client_info": {
+          "package_name": "com.mariblanja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307503576523-omll0tdicat102kcv0vc6lmd251rp76a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWxb4FKOjXmhutlQkBYrFd7j8l9MtWftE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307503576523-omll0tdicat102kcv0vc6lmd251rp76a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,17 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, Dimensions, View} from 'react-native';
-import {Container, Header, Content, Footer} from 'native-base';
-import {Icon, SearchBar} from 'react-native-elements';
-// import {useNavigation} from '@react-navigation/native';
+import {Container} from 'native-base';
+import {useSelector} from 'react-redux';
 import HeaderHome from './Header';
 import ContentHome from './Content';
+import EmptyProduct from './EmptyProduct';
 
 export default function Index() {
-  // const navigation = useNavigation();
+  const {product} = useSelector((state) => state.product);
   return (
     <Container style={{backgroundColor: '#E5E5E5'}}>
       <HeaderHome />
-      <ContentHome />
+      {product.length ? <ContentHome /> : <EmptyProduct />}
     </Container>
   );
 }

@@ -4,36 +4,24 @@ import {
   View,
   Dimensions,
   StatusBar,
-  Pressable,
   StyleSheet,
-  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
-import {Button, Card, CardItem, Thumbnail} from 'native-base';
+import {Card, CardItem} from 'native-base';
 import Modal from 'react-native-modal';
-import {Icon} from 'react-native-elements';
-import bebasongkir from '../../assets/images/bebasongkir.png';
+import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
 const window = Dimensions.get('window');
 const width = window.width * window.scale;
 const height = window.height * window.scale;
-const ToastSuccess = () => {
-  ToastAndroid.show(
-    'Berhasil melakukan pembelian.',
-    ToastAndroid.TOP,
-    ToastAndroid.SHORT,
-  );
-};
-const ToastError = (message) => {
-  ToastAndroid.show(
-    'Gagal melakukan pembelian',
-    ToastAndroid.TOP,
-    ToastAndroid.SHORT,
-  );
-};
-const ModalToCart = (props) => {
+
+const ShortCutMenu = (props) => {
   const navigation = useNavigation();
+  const {cart} = useSelector((state) => state.cart);
+  let isReadyInCart =
+    props.isShow && cart.find((item) => item.id === props.data.id);
+
   return (
     <>
       <StatusBar backgroundColor="#118b0d" />
@@ -74,9 +62,13 @@ const ModalToCart = (props) => {
                 }}>
                 <TouchableOpacity
                   onPress={() => {
-                    props.closeModal();
-                    props.handleAddToCart();
-                    props.openModalToCart(true);
+                    if (isReadyInCart) {
+                      props.closeModal();
+                      navigation.navigate('Cart');
+                    } else {
+                      props.handleAddToCart();
+                      props.openModalToCart(true);
+                    }
                   }}
                   style={{
                     borderBottomColor: 'rgba(201, 196, 196, 0.55)',
@@ -85,7 +77,11 @@ const ModalToCart = (props) => {
                     alignItems: 'flex-start',
                     marginVertical: 3,
                   }}>
-                  <Text style={styles.listTitle}>Tambahkan ke keranjang</Text>
+                  <Text style={styles.listTitle}>
+                    {isReadyInCart
+                      ? 'Sudah di keranjang, lihat keranjang?'
+                      : 'Tambahkan ke keranjang'}
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{
@@ -104,7 +100,7 @@ const ModalToCart = (props) => {
   );
 };
 
-export default ModalToCart;
+export default ShortCutMenu;
 
 const styles = StyleSheet.create({
   container: {

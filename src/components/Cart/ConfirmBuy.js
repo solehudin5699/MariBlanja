@@ -56,9 +56,6 @@ const ModalToCart = (props) => {
         onBackdropPress={() => {
           props.closeModal(false);
         }}
-        onSwipeComplete={() => {
-          props.closeModal(false);
-        }}
         swipeDirection="down"
         // propagateSwipe
         backdropTransitionOutTiming={0}
@@ -80,9 +77,7 @@ const ModalToCart = (props) => {
                   flexDirection: 'column',
                   alignItems: 'flex-start',
                 }}>
-                <Text style={styles.listTitle}>
-                  Daftar Produk yang akan dibeli
-                </Text>
+                <Text style={styles.listTitle}>Produk yang akan dibeli</Text>
                 {props.isShow &&
                   props.data.map((dataItem, indexData) => {
                     return (
@@ -129,7 +124,6 @@ const ModalToCart = (props) => {
                       </View>
                     );
                   })}
-
                 <Button
                   onPress={() => {
                     props.closeModal(false);
@@ -162,6 +156,7 @@ const styles = StyleSheet.create({
 
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    maxWidth: height,
   },
   closeIcon: {
     width: '100%',
@@ -182,7 +177,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 16,
     fontStyle: 'normal',
-    marginBottom: 10,
+    marginBottom: 15,
     fontWeight: 'bold',
     textAlign: 'center',
     marginLeft: -3,
