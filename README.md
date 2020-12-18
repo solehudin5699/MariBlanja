@@ -16,7 +16,7 @@
 
 ## Description
 
-**Mariblanja App** is a a simple e-commerce application that provides various sales products, build with React Native. The user interface used is cloning or similar to the old version of Tokopedia.
+**Mariblanja App** is a a simple e-commerce application that provides various sales products and build with React Native. The user interface used is partially similar to tokopedia old version.
 
 ## Features
 
