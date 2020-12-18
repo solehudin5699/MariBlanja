@@ -18,6 +18,8 @@
 
 **Mariblanja App** is a a simple e-commerce application that provides various sales products, build with React Native and firebase as database.
 
+User Interface yang digunakan adalah cloning atau mirip dengan tokopedia old version.
+
 ## Features
 
 - Sign In and Sign Up
