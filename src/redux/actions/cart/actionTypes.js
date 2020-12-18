@@ -8,4 +8,5 @@ export const cart = {
   selectAllProducts: 'SELECT_ALLPRODUCTS',
   deleteProduct: 'DELETE_PRODUCT',
   deleteSelectedProduct: 'DELETE_SELECTED_PRODUCT',
+  changeQuantityDirectly: 'CHANGE_QUANTITY_DIRECTLY',
 };

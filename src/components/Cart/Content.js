@@ -14,7 +14,9 @@ import {
   selectProduct,
   selectAllProductPerStore,
   deleteProduct,
+  changeQuantityDirectly,
 } from '../../redux/actions/cart/cart';
+import ConfirmDelete from './ConfirmDelete';
 
 export default function ContentCart() {
   function formatRupiah(num) {
@@ -23,248 +25,279 @@ export default function ContentCart() {
   const {cart, store} = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   console.log(cart);
+  const [numOrderProduct, setNumOrder] = useState('0');
+  const handleOnChange = (value) => {
+    setNumOrder(value);
+  };
+
+  const [product, setProduct] = useState(null);
+  const handleDelete = () => {
+    dispatch(deleteProduct(product[0].id));
+    dispatch(setTotalPrice());
+  };
+  const [modalDelete, setModalDelete] = useState(false);
   return (
-    <View style={{flex: 1}}>
-      <FlatList
-        data={store}
-        numColumns={1}
-        key={1}
-        renderItem={({item, index}) => {
-          return (
-            <>
-              {cart.find((cartItem) => cartItem.store === item) ? (
-                <Card
-                  style={{
-                    marginTop: index === 0 ? -3 : -1,
-                  }}>
-                  <CardItem
+    <>
+      <View style={{flex: 1}}>
+        <FlatList
+          data={store}
+          numColumns={1}
+          key={1}
+          renderItem={({item, index}) => {
+            return (
+              <>
+                {cart.find((cartItem) => cartItem.store === item) ? (
+                  <Card
                     style={{
-                      // marginVertical: -2,
-                      // marginTop: index === 0 ? -3 : -1,
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
+                      marginTop: index === 0 ? -3 : -1,
                     }}>
-                    <View style={styles.store_Container}>
-                      <CheckBox
-                        tintColors={{true: '#118b0d', false: '#C9C4C4'}}
-                        value={
-                          !Boolean(
-                            cart.find((itemCart) => {
-                              return (
-                                itemCart.store === item && !itemCart.isSelected
-                              );
-                            }),
-                          )
-                        }
-                        onValueChange={() => {
-                          dispatch(
-                            selectAllProductPerStore(
-                              item,
-                              !Boolean(
-                                cart.find((itemCart) => {
-                                  return (
-                                    itemCart.store === item &&
-                                    !itemCart.isSelected
-                                  );
-                                }),
+                    <CardItem
+                      style={{
+                        // marginVertical: -2,
+                        // marginTop: index === 0 ? -3 : -1,
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                      }}>
+                      <View style={styles.store_Container}>
+                        <CheckBox
+                          tintColors={{true: '#118b0d', false: '#C9C4C4'}}
+                          value={
+                            !Boolean(
+                              cart.find((itemCart) => {
+                                return (
+                                  itemCart.store === item &&
+                                  !itemCart.isSelected
+                                );
+                              }),
+                            )
+                          }
+                          onValueChange={() => {
+                            dispatch(
+                              selectAllProductPerStore(
+                                item,
+                                !Boolean(
+                                  cart.find((itemCart) => {
+                                    return (
+                                      itemCart.store === item &&
+                                      !itemCart.isSelected
+                                    );
+                                  }),
+                                ),
                               ),
-                            ),
-                          );
-                          dispatch(setTotalPrice());
-                        }}
-                      />
-                      <Text>
-                        Toko <Text style={styles.store_Name}>{item}</Text>
-                      </Text>
+                            );
+                            dispatch(setTotalPrice());
+                          }}
+                        />
+                        <Text>
+                          Toko <Text style={styles.store_Name}>{item}</Text>
+                        </Text>
 
-                      <Thumbnail
-                        source={
+                        <Thumbnail
+                          source={
+                            cart.find((cartItem) => cartItem.store === item)
+                              .official
+                              ? official
+                              : unofficial
+                          }
+                          style={styles.store_OfficialUnOfficial}
+                        />
+                      </View>
+                      <Text style={styles.store_Location}>
+                        {
                           cart.find((cartItem) => cartItem.store === item)
-                            .official
-                            ? official
-                            : unofficial
+                            .location
                         }
-                        style={styles.store_OfficialUnOfficial}
-                      />
-                    </View>
-                    <Text style={styles.store_Location}>
-                      {
-                        cart.find((cartItem) => cartItem.store === item)
-                          .location
-                      }
-                    </Text>
-                  </CardItem>
-                  {cart
-                    .filter((cartItem) => cartItem.store === item)
-                    .map((product, indexProduct) => {
-                      return (
-                        <CardItem
-                          key={indexProduct}
-                          style={{
-                            flexDirection: 'column',
-                            alignItems: 'flex-start',
-                          }}>
-                          <View style={styles.detailProd_Container}>
-                            <View style={{flex: 0.1}}>
-                              <CheckBox
-                                tintColors={{
-                                  true: '#118b0d',
-                                  false: '#C9C4C4',
-                                }}
-                                value={product.isSelected}
-                                onValueChange={() => {
-                                  dispatch(selectProduct(product.id));
-                                  dispatch(setTotalPrice());
-                                }}
-                              />
-                            </View>
-                            <View style={styles.detailProd_ImgWrap}>
-                              <Thumbnail
-                                source={product.image[0]}
-                                style={{
-                                  width: 55,
-                                  height: 55,
-                                  borderRadius: 3.5,
-                                }}
-                              />
-                            </View>
-                            <View style={styles.detailProd_InfoWrap}>
-                              <Text
-                                numberOfLines={2}
-                                style={styles.detailProd_Name}>
-                                {product.nameProduct}
-                              </Text>
-                              {product.freeOngkir ? (
-                                <View>
-                                  <Thumbnail
-                                    source={bebasongkir}
-                                    style={styles.detailProd_BebasOngkir}
-                                  />
-                                </View>
-                              ) : null}
-                              <Text style={styles.detailProd_Price}>
-                                Rp{formatRupiah(product.price)}
-                              </Text>
+                      </Text>
+                    </CardItem>
 
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                  alignItems: 'center',
-                                  marginTop: 15,
-                                }}>
-                                <View
-                                  style={{
-                                    flex: 0.2,
-                                    alignItems: 'center',
-                                  }}>
-                                  <Icon
-                                    name="heart"
-                                    size={25}
-                                    color="#b4bbc4"
-                                    type="ionicon"
-                                    style={{alignSelf: 'center'}}
-                                  />
-                                </View>
-                                <Pressable
-                                  onPress={() => {
-                                    dispatch(deleteProduct(product.id));
+                    {cart
+                      .filter((cartItem) => cartItem.store === item)
+                      .map((product, indexProduct) => {
+                        return (
+                          <CardItem
+                            key={indexProduct}
+                            style={{
+                              flexDirection: 'column',
+                              alignItems: 'flex-start',
+                            }}>
+                            <View style={styles.detailProd_Container}>
+                              <View style={{flex: 0.1}}>
+                                <CheckBox
+                                  tintColors={{
+                                    true: '#118b0d',
+                                    false: '#C9C4C4',
+                                  }}
+                                  value={product.isSelected}
+                                  onValueChange={() => {
+                                    dispatch(selectProduct(product.id));
                                     dispatch(setTotalPrice());
                                   }}
+                                />
+                              </View>
+                              <View style={styles.detailProd_ImgWrap}>
+                                <Thumbnail
+                                  source={product.image[0]}
                                   style={{
-                                    flex: 0.2,
-                                    alignItems: 'center',
-                                  }}>
-                                  <Icon
-                                    name="delete"
-                                    size={25}
-                                    color="#b4bbc4"
-                                    type="material"
-                                    style={{alignSelf: 'center'}}
-                                  />
-                                </Pressable>
-                                <Pressable
-                                  onPress={() => {
-                                    dispatch(decreaseQuantity(product.id));
-                                    dispatch(setTotalPrice());
+                                    width: 55,
+                                    height: 55,
+                                    borderRadius: 3.5,
                                   }}
-                                  style={{flex: 0.2, alignItems: 'center'}}>
-                                  <Icon
-                                    name="remove-circle"
-                                    size={25}
-                                    color={
-                                      product.numOrder > 1
-                                        ? '#118b0d'
-                                        : '#b4bbc4'
-                                    }
-                                    type="ionicon"
-                                    style={{alignSelf: 'center'}}
-                                  />
-                                </Pressable>
+                                />
+                              </View>
+                              <View style={styles.detailProd_InfoWrap}>
+                                <Text
+                                  numberOfLines={2}
+                                  style={styles.detailProd_Name}>
+                                  {product.nameProduct}
+                                </Text>
+                                {product.freeOngkir ? (
+                                  <View>
+                                    <Thumbnail
+                                      source={bebasongkir}
+                                      style={styles.detailProd_BebasOngkir}
+                                    />
+                                  </View>
+                                ) : null}
+                                <Text style={styles.detailProd_Price}>
+                                  Rp{formatRupiah(product.price)}
+                                </Text>
+
                                 <View
                                   style={{
-                                    flex: 0.2,
+                                    flexDirection: 'row',
                                     alignItems: 'center',
-                                    marginHorizontal: -5,
-                                    borderBottomColor: '#118b0d',
-                                    borderBottomWidth: 1.5,
+                                    marginTop: 15,
                                   }}>
-                                  <Input
+                                  <View
                                     style={{
-                                      textAlign: 'center',
-                                      width: '100%',
-                                      fontSize: 17,
+                                      flex: 0.2,
+                                      alignItems: 'center',
+                                    }}>
+                                    <Icon
+                                      name="heart"
+                                      size={25}
+                                      color="#b4bbc4"
+                                      type="ionicon"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </View>
+                                  <Pressable
+                                    onPress={() => {
+                                      setModalDelete(true);
+                                      setProduct([product]);
                                     }}
-                                    keyboardType="decimal-pad"
-                                    inputContainerStyle={{
-                                      borderBottomColor: 'transparent',
-                                      height: 25,
+                                    style={{
+                                      flex: 0.2,
+                                      alignItems: 'center',
+                                    }}>
+                                    <Icon
+                                      name="delete"
+                                      size={25}
+                                      color="#b4bbc4"
+                                      type="material"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </Pressable>
+                                  <Pressable
+                                    onPress={() => {
+                                      dispatch(decreaseQuantity(product.id));
+                                      dispatch(setTotalPrice());
                                     }}
-                                    containerStyle={{
-                                      height: 25,
-                                      paddingHorizontal: -5,
+                                    style={{flex: 0.2, alignItems: 'center'}}>
+                                    <Icon
+                                      name="remove-circle"
+                                      size={25}
+                                      color={
+                                        product.numOrder > 1
+                                          ? '#118b0d'
+                                          : '#b4bbc4'
+                                      }
+                                      type="ionicon"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </Pressable>
+                                  <View
+                                    style={{
+                                      flex: 0.2,
+                                      alignItems: 'center',
+                                      marginHorizontal: -5,
+                                      borderBottomColor: '#118b0d',
+                                      borderBottomWidth: 1.5,
+                                    }}>
+                                    <Input
+                                      style={{
+                                        textAlign: 'center',
+                                        width: '100%',
+                                        fontSize: 17,
+                                      }}
+                                      keyboardType="decimal-pad"
+                                      inputContainerStyle={{
+                                        borderBottomColor: 'transparent',
+                                        height: 25,
+                                      }}
+                                      containerStyle={{
+                                        height: 25,
+                                        paddingHorizontal: -5,
+                                      }}
+                                      onChangeText={(value) =>
+                                        handleOnChange(value)
+                                      }
+                                      defaultValue={product.numOrder.toString()}
+                                      onEndEditing={() => {
+                                        dispatch(
+                                          changeQuantityDirectly(
+                                            product.id,
+                                            numOrderProduct,
+                                          ),
+                                        );
+                                        dispatch(setTotalPrice());
+                                      }}
+                                    />
+                                  </View>
+                                  <Pressable
+                                    onPress={() => {
+                                      dispatch(increaseQuantity(product.id));
+                                      dispatch(setTotalPrice());
                                     }}
-                                    // onChangeText={handleChange('email')}
-                                    // onBlur={handleBlur('email')}
-                                    value={product.numOrder.toString()}
-                                  />
+                                    style={{flex: 0.2, alignItems: 'center'}}>
+                                    <Icon
+                                      name="add-circle"
+                                      size={25}
+                                      color="#118b0d"
+                                      type="ionicon"
+                                      style={{alignSelf: 'center'}}
+                                    />
+                                  </Pressable>
                                 </View>
-                                <Pressable
-                                  onPress={() => {
-                                    dispatch(increaseQuantity(product.id));
-                                    dispatch(setTotalPrice());
-                                  }}
-                                  style={{flex: 0.2, alignItems: 'center'}}>
-                                  <Icon
-                                    name="add-circle"
-                                    size={25}
-                                    color="#118b0d"
-                                    type="ionicon"
-                                    style={{alignSelf: 'center'}}
-                                  />
-                                </Pressable>
                               </View>
                             </View>
-                          </View>
-                          <Pressable
-                            style={{
-                              alignItems: 'flex-start',
-                              marginTop: 5,
-                            }}>
-                            <Text style={styles.writeNote_forStore}>
-                              Tulis Catatan untuk Toko
-                            </Text>
-                          </Pressable>
-                        </CardItem>
-                      );
-                    })}
-                </Card>
-              ) : null}
-            </>
-          );
-        }}
-        keyExtractor={(index, item) => index.toString()}
+                            <Pressable
+                              style={{
+                                alignItems: 'flex-start',
+                                marginTop: 5,
+                              }}>
+                              <Text style={styles.writeNote_forStore}>
+                                Tulis Catatan untuk Toko
+                              </Text>
+                            </Pressable>
+                          </CardItem>
+                        );
+                      })}
+                  </Card>
+                ) : null}
+              </>
+            );
+          }}
+          keyExtractor={(index, item) => index.toString()}
+        />
+      </View>
+      <ConfirmDelete
+        data={product}
+        handleDelete={handleDelete}
+        isShow={modalDelete}
+        closeModal={setModalDelete}
       />
-    </View>
+    </>
   );
 }
 

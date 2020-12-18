@@ -51,6 +51,12 @@ export const deleteProduct = (idProduct) => {
     payload: idProduct,
   };
 };
+export const changeQuantityDirectly = (idProduct, numOrder) => {
+  return {
+    type: cart.changeQuantityDirectly,
+    payload: {idProduct, numOrder},
+  };
+};
 export const deleteAll = () => {
   return {
     type: 'DEL',

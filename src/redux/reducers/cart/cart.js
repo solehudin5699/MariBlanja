@@ -166,6 +166,23 @@ const cartReducer = (prevState = initalState, action) => {
         cart: newCart,
       };
     }
+    case cart.changeQuantityDirectly: {
+      let newCart = prevState.cart.map((item) => {
+        if (item.id === action.payload.idProduct) {
+          return {
+            ...item,
+            numOrder: Number(action.payload.numOrder),
+            priceBasedNumOrder: item.price * Number(action.payload.numOrder),
+          };
+        } else {
+          return item;
+        }
+      });
+      return {
+        ...prevState,
+        cart: newCart,
+      };
+    }
     case 'DEL':
       return {
         ...prevState,

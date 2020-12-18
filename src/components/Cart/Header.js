@@ -7,10 +7,17 @@ import {
   setTotalPrice,
   deleteSelectedProduct,
 } from '../../redux/actions/cart/cart';
+import ConfirmDelete from './ConfirmDelete';
 
 export default function HeaderCart() {
   const dispatch = useDispatch();
   const {cart} = useSelector((state) => state.cart);
+  const [modalDelete, setModalDelete] = useState(false);
+  const data = cart.filter((item) => item.isSelected === true);
+  const handleDeleteSelected = () => {
+    dispatch(deleteSelectedProduct());
+    dispatch(setTotalPrice());
+  };
   return (
     <>
       <View style={styles.allSelect}>
@@ -32,12 +39,17 @@ export default function HeaderCart() {
         <Pressable
           style={styles.allSelect_Delete}
           onPress={() => {
-            dispatch(deleteSelectedProduct());
-            dispatch(setTotalPrice());
+            setModalDelete(true);
           }}>
           <Text style={styles.allSelect_DeleteText}>Hapus</Text>
         </Pressable>
       </View>
+      <ConfirmDelete
+        data={data}
+        handleDelete={handleDeleteSelected}
+        isShow={modalDelete}
+        closeModal={setModalDelete}
+      />
     </>
   );
 }

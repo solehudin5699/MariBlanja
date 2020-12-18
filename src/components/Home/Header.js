@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
-import {Container, Header, Content, Footer} from 'native-base';
-import {useSelector} from 'react-redux';
+import {Header} from 'native-base';
+import {useSelector, useDispatch} from 'react-redux';
 import {Icon, SearchBar} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
+import {getProduct} from '../../redux/actions/product/product';
+import {data} from '../../dataDummy/data';
 
 export default function HeaderHome(props) {
   const navigation = useNavigation();
@@ -12,6 +14,15 @@ export default function HeaderHome(props) {
   const handleSearchInput = (value) => {
     setKeyword(value);
   };
+  const dispatch = useDispatch();
+  const handleSearch = (key) => {
+    let newData = data.filter((item) => item.nameProduct.includes(key));
+    dispatch(getProduct(newData));
+  };
+
+  useEffect(() => {
+    dispatch(getProduct(data));
+  }, []);
   return (
     <Header androidStatusBarColor="#118b0d" style={styles.header}>
       <SearchBar
@@ -54,17 +65,12 @@ export default function HeaderHome(props) {
         placeholder="Cari di sini..."
         placeholderTextColor="rgba(58, 61, 66, 0.4)"
         onChangeText={handleSearchInput}
-        // onEndEditing={() => {
-        //   dispatch(setKeywordCreator(keyword));
-        //   dispatch(setResetCreator());
-        //   dispatch(getContactAPICreator(keyword, 'name', 'ASC', 1, 8));
-        //   dispatch(setPageCreator(1));
-        // }}
-        // onClear={() => {
-        //   dispatch(setResetCreator());
-        //   dispatch(setKeywordCreator(''));
-        //   dispatch(getContactAPICreator('', 'name', 'ASC', 1, 8));
-        // }}
+        onEndEditing={() => {
+          handleSearch(keyword);
+        }}
+        onClear={() => {
+          handleSearch('');
+        }}
         value={keyword}
         round={true}
       />

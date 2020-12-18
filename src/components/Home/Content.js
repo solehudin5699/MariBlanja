@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Dimensions, View, Text} from 'react-native';
+import {useSelector} from 'react-redux';
 import {Icon, Badge} from 'react-native-elements';
 import example from '../../assets/images/coverbook.jpg';
 import MasonryLayout from './MasonryLayout';
@@ -129,10 +130,11 @@ const dataDummy = [
 
 import {data} from '../../dataDummy/data';
 export default function ContentHome(props) {
+  const {product} = useSelector((state) => state.product);
   return (
     <View style={styles.container}>
       <MasonryLayout
-        data={data}
+        data={product}
         renderItem={(item) => <ItemProduct item={item} />}
       />
       <View style={styles.container_sortFilter}>

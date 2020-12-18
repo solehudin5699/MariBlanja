@@ -1,21 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native';
-import {
-  Container,
-  Content,
-  Footer,
-  Card,
-  CardItem,
-  List,
-  ListItem,
-  Thumbnail,
-  Button,
-} from 'native-base';
+import {View, Text, StyleSheet} from 'react-native';
+import {Footer, Button} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteAll, setTotalPrice} from '../../redux/actions/cart/cart';
+import {
+  deleteAll,
+  setTotalPrice,
+  deleteSelectedProduct,
+} from '../../redux/actions/cart/cart';
+import ConfirmBuy from './ConfirmBuy';
 
 export default function FooterCart() {
-  const [isSelectAll, setSelectAll] = useState(false);
   function formatRupiah(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
@@ -23,29 +17,44 @@ export default function FooterCart() {
   useEffect(() => {
     dispatch(setTotalPrice());
   }, [dispatch]);
-  const {totalPriceSelected, totalNumOrder} = useSelector(
+  const {totalPriceSelected, totalNumOrder, cart} = useSelector(
     (state) => state.cart,
   );
+  const [modalBuy, setModalBuy] = useState(false);
+  const data = cart.filter((item) => item.isSelected === true);
+  const handleBuy = () => {
+    dispatch(deleteSelectedProduct());
+  };
   return (
-    <Footer style={styles.footer}>
-      <View style={styles.container}>
-        <View style={styles.totalPrice_wrap}>
-          <Text style={styles.totalPrice_text}>Total Harga</Text>
-          <Text style={styles.totalPrice_value}>
-            Rp{formatRupiah(Number(totalPriceSelected))}{' '}
-          </Text>
-        </View>
-        <View style={styles.button_wrap}>
-          <Button
-            style={styles.button_button}
-            onPress={() => dispatch(deleteAll())}>
-            <Text style={styles.button_text}>
-              {totalNumOrder < 99 ? `Beli (${totalNumOrder})` : `Beli (99+)`}
+    <>
+      <Footer style={styles.footer}>
+        <View style={styles.container}>
+          <View style={styles.totalPrice_wrap}>
+            <Text style={styles.totalPrice_text}>Total Harga</Text>
+            <Text style={styles.totalPrice_value}>
+              Rp{formatRupiah(Number(totalPriceSelected))}{' '}
             </Text>
-          </Button>
+          </View>
+          <View style={styles.button_wrap}>
+            <Button
+              style={styles.button_button}
+              onPress={() => {
+                setModalBuy(true);
+              }}>
+              <Text style={styles.button_text}>
+                {totalNumOrder < 99 ? `Beli (${totalNumOrder})` : `Beli (99+)`}
+              </Text>
+            </Button>
+          </View>
         </View>
-      </View>
-    </Footer>
+      </Footer>
+      <ConfirmBuy
+        data={data}
+        isShow={modalBuy}
+        closeModal={setModalBuy}
+        handleBuy={handleBuy}
+      />
+    </>
   );
 }
 

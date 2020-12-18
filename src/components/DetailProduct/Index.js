@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     marginRight: 8,
     fontFamily: 'arial',
-    textAlign: 'justify',
+    textAlign: 'left',
   },
   textProductfrom: {
     color: '#73767b',

@@ -162,19 +162,20 @@ export default function Item({item}) {
                     alignItems: 'flex-end',
                     flex: 0.5,
                   }}>
-                  <View
+                  <TouchableOpacity
+                    onPress={() => alert('Hallo')}
                     style={{
                       justifyContent: 'flex-end',
                       alignItems: 'flex-end',
+                      paddingHorizontal: 3,
                     }}>
                     <Icon
-                      onPress={() => alert('Hallo')}
                       name="ellipsis-horizontal"
                       size={15}
                       color="#9fa6b0"
                       type="ionicon"
                     />
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </Body>
