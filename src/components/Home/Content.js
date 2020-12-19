@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {StyleSheet, Dimensions, View, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import {Icon, Badge} from 'react-native-elements';
-import example from '../../assets/images/coverbook.jpg';
 import MasonryLayout from './MasonryLayout';
 import ItemProduct from './ItemProduct';
 
