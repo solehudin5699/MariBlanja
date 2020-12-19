@@ -18,7 +18,7 @@ export default function HeaderHome(props) {
   };
   const dispatch = useDispatch();
   const handleSearch = (key) => {
-    let newData = data.filter((item) => item.nameProduct.includes(key));
+    let newData = data.filter((item) => item.nameProduct.toLowerCase().includes(key.toLowerCase()));
     dispatch(getProduct(newData));
   };
 

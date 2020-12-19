@@ -38,11 +38,11 @@ export const data = [
     freeOngkir: false,
     location: 'Jakarta Pusat',
     grosir: true,
-    price: 100000,
+    price: 75000,
     stock: 100,
     ulasan: {name: ''},
-    numLike: 12,
-    numUnlike: 10,
+    numLike: 120,
+    numUnlike: 50,
     description: `Deskripsi kemeja polos pria lengan panjang warna | baju basic cowok slimfit - Soft Blue, M
 
     BEST Seller Produk KEMEJA POLOS PRIA
@@ -82,14 +82,14 @@ export const data = [
     store: 'Goodfella',
     official: true,
     image: [p1f, p1g],
-    freeOngkir: false,
+    freeOngkir: true,
     location: 'Jakarta Pusat',
     grosir: true,
     price: 100000,
     stock: 100,
     ulasan: {name: ''},
-    numLike: 12,
-    numUnlike: 10,
+    numLike: 50,
+    numUnlike: 20,
     description: `Deskripsi Kemeja pria stripes lengan pendek motif salur garis baju cowok
 
     READY STOCK !!!
@@ -119,13 +119,13 @@ export const data = [
     store: 'Decathlon Indonesiareputation',
     official: true,
     image: [p2a, p2b, p2c, p2d, p2e],
-    freeOngkir: false,
+    freeOngkir: true,
     location: 'Jakarta Barat',
     grosir: false,
     price: 68000,
     stock: 100,
     ulasan: {name: ''},
-    numLike: 12,
+    numLike: 90,
     numUnlike: 10,
     description: `Deskripsi Kalenji Kaos Lari Dryfit Pria Petrole biru Decathlon - S
 
@@ -153,14 +153,14 @@ export const data = [
     store: 'Decathlon Indonesiareputation',
     official: true,
     image: [p2f, p2g, p2h],
-    freeOngkir: true,
+    freeOngkir: false,
     location: 'Jakarta Barat',
     grosir: false,
     price: 420000,
     stock: 100,
     ulasan: {name: ''},
-    numLike: 12,
-    numUnlike: 10,
+    numLike: 250,
+    numUnlike: 100,
     description: `Deskripsi Kipsta Sepatu Sepak Bola Lapangan Kering 500 Decathlon - 8496186 - 44
 
     USER BENEFITS :
@@ -191,8 +191,8 @@ export const data = [
     price: 42000,
     stock: 100,
     ulasan: {name: ''},
-    numLike: 12,
-    numUnlike: 10,
+    numLike: 1000,
+    numUnlike: 500,
     description: `Deskripsi Quechua Backpack NH100 10L Merah Putih Decathlon - 4155536
 
     Dengan bangga mempersembahkan edisi spesial: Ransel NH100 Merah Putih. Dirancang untuk merayakan Hari Kemerdekaan Indonesia. Dari Indonesia untuk Indonesia!
@@ -225,8 +225,8 @@ export const data = [
     price: 49500,
     stock: 100,
     ulasan: {name: ''},
-    numLike: 12,
-    numUnlike: 10,
+    numLike: 100,
+    numUnlike: 20,
     description: `Deskripsi Celana Chino Pinggang Karet Pria / Chino Panjang / Cino Panjang - Hitam, 27
 
     Celana Chino Panjang Pinggang Karet

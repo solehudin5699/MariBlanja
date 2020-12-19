@@ -16,7 +16,7 @@
 
 ## Description
 
-**Mariblanja App** is a a simple e-commerce application that provides various sales products and build with React Native. The user interface used is partially similar to tokopedia old version.
+**Mariblanja App** is a a simple e-commerce application that provides various sales products and build with React Native. The user interface used is partially similar to tokopedia app.
 
 ## Features
 
@@ -48,6 +48,8 @@
 ## Screenshoots
 
 <div align="center">
+    <img width="250" src="./src/assets/images/sc5.png">
+    <img width="250" src="./src/assets/images/sc6.png">
     <img width="250" src="./src/assets/images/sc1.png">   
     <img width="250" src="./src/assets/images/sc2.png">
     <img width="250" src="./src/assets/images/sc3.png">
@@ -58,6 +60,6 @@
 
 Download this apk release for getting experience with this app.
 
-<a href="http://bit.ly/edress_app">
+<a href="http://bit.ly/mariblanja_app">
 <img src="https://img.shields.io/badge/Download%20Mariblanja%20on%20the-Google%20Drive-blue.svg?style=popout&logo=google-drive"/>
 </a>

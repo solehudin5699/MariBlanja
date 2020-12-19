@@ -85,16 +85,20 @@ export default function ItemProduct({item}) {
                   }}>
                   {item.nameProduct}
                 </Text>
-                <Badge
-                  badgeStyle={{
-                    backgroundColor: '#d6ffdd',
-                    paddingHorizontal: 10,
-                    borderRadius: 3,
-                  }}
-                  value={
-                    <Text style={{color: '#10b51b', fontSize: 12}}>Grosir</Text>
-                  }
-                />
+                {item.grosir && (
+                  <Badge
+                    badgeStyle={{
+                      backgroundColor: '#d6ffdd',
+                      paddingHorizontal: 10,
+                      borderRadius: 3,
+                    }}
+                    value={
+                      <Text style={{color: '#10b51b', fontSize: 12}}>
+                        Grosir
+                      </Text>
+                    }
+                  />
+                )}
                 <Text
                   style={{
                     color: '#000000',
