@@ -48,9 +48,10 @@
 ## Screenshoots
 
 <div align="center">
-    <img width="250" src="./src/assets/images/screenshoot-1.png">   
-    <img width="250" src="./src/assets/images/screenshoot-2.png">
-    <img width="250" src="./src/assets/images/screenshoot-3.png">
+    <img width="250" src="./src/assets/images/sc1.png">   
+    <img width="250" src="./src/assets/images/sc2.png">
+    <img width="250" src="./src/assets/images/sc3.png">
+    <img width="250" src="./src/assets/images/sc4.png">
 </div>
 
 ## APK Release

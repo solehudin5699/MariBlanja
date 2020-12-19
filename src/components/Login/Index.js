@@ -23,7 +23,7 @@ export default function Index() {
                 Mari
                 <Text style={styles.blanjaText}>blanja</Text>
               </Text>
-              <Text style={styles.signinText}>SignIn</Text>
+              <Text style={styles.signinText}>Sign In</Text>
             </View>
             <View style={styles.formWrap}>
               <FormLogin />

@@ -63,10 +63,11 @@ const ShortCutMenu = (props) => {
                 <TouchableOpacity
                   onPress={() => {
                     if (isReadyInCart) {
-                      props.closeModal();
+                      props.closeModal(false);
                       navigation.navigate('Cart');
                     } else {
                       props.handleAddToCart();
+                      props.closeModal(false);
                       props.openModalToCart(true);
                     }
                   }}
