@@ -58,7 +58,7 @@
 
 ## APK Release
 
-Download this apk release for getting experience with this app.
+Download this apk release for getting experience with this app. Please sign up then login first, or you can use account demo, use email _**userdemo@surel.com**_ and password _**userdemo**_ to login.
 
 <a href="http://bit.ly/mariblanja_app">
 <img src="https://img.shields.io/badge/Download%20Mariblanja%20on%20the-Google%20Drive-blue.svg?style=popout&logo=google-drive"/>
